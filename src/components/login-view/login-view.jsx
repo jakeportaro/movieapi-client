@@ -13,7 +13,11 @@ export function LoginView(props) {
     /* then call props.onLoggedIn(username) */
     props.onLoggedIn(username);
   };
-
+  const handleRegister = (e) => {
+    e.preventDefault();
+    console.log('please register');
+    props.onRegistration(username);
+  };
 
 
   return (
@@ -27,6 +31,7 @@ export function LoginView(props) {
         <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
       </label>
       <button type="submit" onClick={handleSubmit}>Submit</button>
+      <button type="submit" onClick={handleRegister}>Register Here</button>
     </form>
   );
 }

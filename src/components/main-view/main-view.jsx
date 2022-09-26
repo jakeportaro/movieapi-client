@@ -14,6 +14,7 @@ export class MainView extends React.Component {
       movies: [ ],
       selectedMovie: null,
       user: null,
+      register:null
     }
   }
 
