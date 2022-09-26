@@ -28720,7 +28720,6 @@ function LoginView(props) {
     _s();
     const [username, setUsername] = _react.useState('');
     const [password, setPassword] = _react.useState('');
-    const log = console.log('hello');
     const handleSubmit = (e)=>{
         e.preventDefault();
         console.log(username, password);
@@ -28784,16 +28783,6 @@ function LoginView(props) {
                 },
                 __self: this,
                 children: "Submit"
-            }),
-            /*#__PURE__*/ _jsxRuntime.jsx("button", {
-                type: "button",
-                onClick: _registrationView.RegistrationView,
-                __source: {
-                    fileName: "src/components/login-view/login-view.jsx",
-                    lineNumber: 30
-                },
-                __self: this,
-                children: "Register Here"
             })
         ]
     }));
