@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/jakeportaro/movieapi-client#readme",
   "dependencies": {
-    "parcel": "^2.7.0",
+    "parcel": "^2.0.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
