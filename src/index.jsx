@@ -5,6 +5,8 @@ import { MovieCard } from './components/movie-card/movie-card';
 import { MovieView } from './components/movie-view/movie-view';
 import {RegistrationView } from './components/registration-view/registration-view'
 import Container from 'react-bootstrap/Container';
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+
 
 
 // Import statement to indicate that you need to bundle `./index.scss`
@@ -14,9 +16,11 @@ import './index.scss';
 class MyFlixApplication extends React.Component {
   render() {
     return (
+      <Router>
       <Container>
       <MainView />
       </Container>
+      </Router>
     );
   }
 }
