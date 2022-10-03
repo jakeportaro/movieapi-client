@@ -26951,7 +26951,6 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
-var _reactRouterDom = require("react-router-dom");
 var _loginView = require("../login-view/login-view");
 var _movieCard = require("../movie-card/movie-card");
 var _movieView = require("../movie-view/movie-view");
@@ -26971,214 +26970,83 @@ class MainView extends (0, _reactDefault.default).Component {
         };
     }
     componentDidMount() {
-        let accessToken = localStorage.getItem("token");
-        if (accessToken !== null) {
+        (0, _axiosDefault.default).get("https://marvel-movies.herokuapp.com/movies").then((response)=>{
             this.setState({
-                user: localStorage.getItem("user")
+                movies: response.data
             });
-            this.getMovies(accessToken);
-        }
+        }).catch((error)=>{
+            console.log(error);
+        });
     }
     setSelectedMovie(movie) {
         this.setState({
             selectedMovie: movie
         });
     }
-    getMovies(token) {
-        (0, _axiosDefault.default).get("https://marvel-movies.herokuapp.com/movies", {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((response)=>{
-            // Assign the result to the state
-            this.setState({
-                movies: response.data
-            });
-        }).catch(function(error) {
-            console.log(error);
-        });
-    }
-    onLoggedIn(authData) {
-        console.log(authData);
+    onLoggedIn(user) {
         this.setState({
-            user: authData.user.Username
+            user
         });
-        localStorage.setItem("token", authData.token);
-        localStorage.setItem("user", authData.user.Username);
-        this.getMovies(authData.token);
     }
     onRegistration(register) {
         this.setState({
             register
         });
     }
-    onLoggedOut() {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        this.setState({
-            user: null
-        });
-    }
     render() {
-        const { movies , user  } = this.state;
-        if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
-            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
-                    onLoggedIn: (user)=>this.onLoggedIn(user)
-                }, void 0, false, {
-                    fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 86,
-                    columnNumber: 13
-                }, this)
-            }, void 0, false, {
-                fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 85,
-                columnNumber: 11
-            }, this)
+        const { movies , selectedMovie , user , register  } = this.state;
+        if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
+            onLoggedIn: (user)=>this.onLoggedIn(user)
         }, void 0, false, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 84,
-            columnNumber: 9
+            lineNumber: 56,
+            columnNumber: 23
         }, this);
         if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             className: "main-view"
         }, void 0, false, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 90,
+            lineNumber: 57,
             columnNumber: 37
         }, this);
-        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.BrowserRouter), {
-            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
-                className: "main-view justify-content-md-center",
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
-                        exact: true,
-                        path: "/",
-                        render: ()=>{
-                            if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
-                                    onLoggedIn: (user)=>this.onLoggedIn(user)
-                                }, void 0, false, void 0, void 0)
-                            }, void 0, false, void 0, void 0);
-                            return movies.map((m)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                    md: 3,
-                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                                        movie: m
-                                    }, void 0, false, void 0, void 0)
-                                }, m._id, false, void 0, void 0));
-                        }
-                    }, void 0, false, {
-                        fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 95,
-                        columnNumber: 11
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
-                        path: "/register",
-                        render: ()=>{
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
-                                path: "/register",
-                                render: ()=>{
-                                    if (user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Redirect), {
-                                        to: "/"
-                                    }, void 0, false, void 0, void 0);
-                                    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _registrationView.RegistrationView), {}, void 0, false, void 0, void 0)
-                                    }, void 0, false, void 0, void 0);
-                                }
-                            }, void 0, false, void 0, void 0);
-                            return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _registrationView.RegistrationView), {}, void 0, false, void 0, void 0)
-                            }, void 0, false, void 0, void 0);
-                        }
-                    }, void 0, false, {
-                        fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 112,
-                        columnNumber: 11
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
-                        path: "/movies/:movieId",
-                        render: ({ match  })=>{
-                            if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
-                                        onLoggedIn: (user)=>this.onLoggedIn(user)
-                                    }, void 0, false, void 0, void 0)
-                                }, void 0, false, void 0, void 0)
-                            }, void 0, false, void 0, void 0);
-                            return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                md: 8,
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
-                                    movie: movies.find((m)=>m._id === match.params.movieId),
-                                    onBackClick: ()=>history.goBack()
-                                }, void 0, false, void 0, void 0)
-                            }, void 0, false, void 0, void 0);
-                        }
-                    }, void 0, false, {
-                        fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 133,
-                        columnNumber: 11
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
-                        path: "/directors/:name",
-                        render: ({ match  })=>{
-                            if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
-                                        onLoggedIn: (user)=>this.onLoggedIn(user)
-                                    }, void 0, false, void 0, void 0)
-                                }, void 0, false, void 0, void 0)
-                            }, void 0, false, void 0, void 0);
-                            if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                className: "main-view"
-                            }, void 0, false, void 0, void 0);
-                            return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                md: 8,
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(DirectorView, {
-                                    director: movies.find((m)=>m.Director.Name === match.params.name).Director,
-                                    onBackClick: ()=>history.goBack()
-                                }, void 0, false, void 0, void 0)
-                            }, void 0, false, void 0, void 0);
-                        }
-                    }, void 0, false, {
-                        fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 154,
-                        columnNumber: 11
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
-                        path: "/genre/:name",
-                        render: ({ match  })=>{
-                            if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
-                                        onLoggedIn: (user)=>this.onLoggedIn(user)
-                                    }, void 0, false, void 0, void 0)
-                                }, void 0, false, void 0, void 0)
-                            }, void 0, false, void 0, void 0);
-                            if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                className: "main-view"
-                            }, void 0, false, void 0, void 0);
-                            return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                md: 8,
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(GenreView, {
-                                    director: movies.find((m)=>m.Genre.Name === match.params.name).Genre,
-                                    onBackClick: ()=>history.goBack()
-                                }, void 0, false, void 0, void 0)
-                            }, void 0, false, void 0, void 0);
-                        }
-                    }, void 0, false, {
-                        fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 179,
-                        columnNumber: 11
-                    }, this)
-                ]
-            }, void 0, true, {
+        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
+            className: "main-view justify-content-md-center",
+            children: selectedMovie ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                md: 8,
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
+                    movie: selectedMovie,
+                    onBackClick: (newSelectedMovie)=>{
+                        this.setSelectedMovie(newSelectedMovie);
+                    }
+                }, void 0, false, {
+                    fileName: "src/components/main-view/main-view.jsx",
+                    lineNumber: 64,
+                    columnNumber: 15
+                }, this)
+            }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 94,
-                columnNumber: 9
-            }, this)
+                lineNumber: 63,
+                columnNumber: 13
+            }, this) : movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                    md: 3,
+                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                        movie: movie,
+                        onMovieClick: (newSelectedMovie)=>{
+                            this.setSelectedMovie(newSelectedMovie);
+                        }
+                    }, movie._id, false, {
+                        fileName: "src/components/main-view/main-view.jsx",
+                        lineNumber: 69,
+                        columnNumber: 15
+                    }, this)
+                }, void 0, false, {
+                    fileName: "src/components/main-view/main-view.jsx",
+                    lineNumber: 68,
+                    columnNumber: 13
+                }, this))
         }, void 0, false, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 93,
+            lineNumber: 60,
             columnNumber: 7
         }, this);
     }
@@ -27189,10 +27057,10 @@ class MainView extends (0, _reactDefault.default).Component {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","axios":"bp8dP","../login-view/login-view":"9YtA0","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","../registration-view/registration-view":"3U8r7","react-bootstrap/Row":"cMC39","react-bootstrap/Col":"2L2I6","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"fDiVC","react-router-dom":"9xmpe"}],"bp8dP":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","axios":"jo6P5","../login-view/login-view":"9YtA0","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","../registration-view/registration-view":"3U8r7","react-bootstrap/Row":"cMC39","react-bootstrap/Col":"2L2I6","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"fDiVC"}],"jo6P5":[function(require,module,exports) {
 module.exports = require("./lib/axios");
 
-},{"./lib/axios":"1WFvn"}],"1WFvn":[function(require,module,exports) {
+},{"./lib/axios":"63MyY"}],"63MyY":[function(require,module,exports) {
 "use strict";
 var utils = require("./utils");
 var bind = require("./helpers/bind");
@@ -27242,7 +27110,7 @@ module.exports = axios;
 // Allow use of default import syntax in TypeScript
 module.exports.default = axios;
 
-},{"./utils":"h3Byj","./helpers/bind":"lYo2g","./core/Axios":"gZtMq","./core/mergeConfig":"e4zpW","./defaults":"3exaN","./cancel/CanceledError":"bOLGd","./cancel/CancelToken":"eiwgl","./cancel/isCancel":"6t7I2","./env/data":"1uONT","./helpers/toFormData":"2B8jZ","../lib/core/AxiosError":"jJVgK","./helpers/spread":"s4eXe","./helpers/isAxiosError":"9vAeJ"}],"h3Byj":[function(require,module,exports) {
+},{"./utils":"5By4s","./helpers/bind":"haRQb","./core/Axios":"cpqD8","./core/mergeConfig":"b85oP","./defaults":"hXfHM","./cancel/CanceledError":"9PwCG","./cancel/CancelToken":"45wzn","./cancel/isCancel":"a0VmF","./env/data":"h29L9","./helpers/toFormData":"ajoez","../lib/core/AxiosError":"3u8Tl","./helpers/spread":"dyQ8N","./helpers/isAxiosError":"eyiLq"}],"5By4s":[function(require,module,exports) {
 "use strict";
 var bind = require("./helpers/bind");
 // utils is a library of generic helper functions non-specific to axios
@@ -27599,7 +27467,7 @@ module.exports = {
     isFileList: isFileList
 };
 
-},{"./helpers/bind":"lYo2g"}],"lYo2g":[function(require,module,exports) {
+},{"./helpers/bind":"haRQb"}],"haRQb":[function(require,module,exports) {
 "use strict";
 module.exports = function bind(fn, thisArg) {
     return function wrap() {
@@ -27609,7 +27477,7 @@ module.exports = function bind(fn, thisArg) {
     };
 };
 
-},{}],"gZtMq":[function(require,module,exports) {
+},{}],"cpqD8":[function(require,module,exports) {
 "use strict";
 var utils = require("./../utils");
 var buildURL = require("../helpers/buildURL");
@@ -27736,7 +27604,7 @@ utils.forEach([
 });
 module.exports = Axios;
 
-},{"./../utils":"h3Byj","../helpers/buildURL":"68FXt","./InterceptorManager":"8r7BV","./dispatchRequest":"gLvZ8","./mergeConfig":"e4zpW","./buildFullPath":"5nZ86","../helpers/validator":"5JzR7"}],"68FXt":[function(require,module,exports) {
+},{"./../utils":"5By4s","../helpers/buildURL":"3bwC2","./InterceptorManager":"1VRIM","./dispatchRequest":"6sjJ6","./mergeConfig":"b85oP","./buildFullPath":"1I5TW","../helpers/validator":"9vgkY"}],"3bwC2":[function(require,module,exports) {
 "use strict";
 var utils = require("./../utils");
 function encode(val) {
@@ -27777,7 +27645,7 @@ function encode(val) {
     return url;
 };
 
-},{"./../utils":"h3Byj"}],"8r7BV":[function(require,module,exports) {
+},{"./../utils":"5By4s"}],"1VRIM":[function(require,module,exports) {
 "use strict";
 var utils = require("./../utils");
 function InterceptorManager() {
@@ -27820,7 +27688,7 @@ function InterceptorManager() {
 };
 module.exports = InterceptorManager;
 
-},{"./../utils":"h3Byj"}],"gLvZ8":[function(require,module,exports) {
+},{"./../utils":"5By4s"}],"6sjJ6":[function(require,module,exports) {
 "use strict";
 var utils = require("./../utils");
 var transformData = require("./transformData");
@@ -27873,7 +27741,7 @@ var CanceledError = require("../cancel/CanceledError");
     });
 };
 
-},{"./../utils":"h3Byj","./transformData":"cMh5V","../cancel/isCancel":"6t7I2","../defaults":"3exaN","../cancel/CanceledError":"bOLGd"}],"cMh5V":[function(require,module,exports) {
+},{"./../utils":"5By4s","./transformData":"eRqJY","../cancel/isCancel":"a0VmF","../defaults":"hXfHM","../cancel/CanceledError":"9PwCG"}],"eRqJY":[function(require,module,exports) {
 "use strict";
 var utils = require("./../utils");
 var defaults = require("../defaults");
@@ -27892,7 +27760,7 @@ var defaults = require("../defaults");
     return data;
 };
 
-},{"./../utils":"h3Byj","../defaults":"3exaN"}],"3exaN":[function(require,module,exports) {
+},{"./../utils":"5By4s","../defaults":"hXfHM"}],"hXfHM":[function(require,module,exports) {
 "use strict";
 var process = require("process");
 var utils = require("../utils");
@@ -28004,7 +27872,7 @@ utils.forEach([
 });
 module.exports = defaults;
 
-},{"process":"bXKEI","../utils":"h3Byj","../helpers/normalizeHeaderName":"hTc5b","../core/AxiosError":"jJVgK","./transitional":"ixLwX","../helpers/toFormData":"2B8jZ","../adapters/xhr":"3ZVEc","../adapters/http":"3ZVEc","./env/FormData":"3FpyD"}],"hTc5b":[function(require,module,exports) {
+},{"process":"bXKEI","../utils":"5By4s","../helpers/normalizeHeaderName":"adBZo","../core/AxiosError":"3u8Tl","./transitional":"lM32f","../helpers/toFormData":"ajoez","../adapters/xhr":"ldm57","../adapters/http":"ldm57","./env/FormData":"aFlee"}],"adBZo":[function(require,module,exports) {
 "use strict";
 var utils = require("../utils");
 module.exports = function normalizeHeaderName(headers, normalizedName) {
@@ -28016,7 +27884,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
     });
 };
 
-},{"../utils":"h3Byj"}],"jJVgK":[function(require,module,exports) {
+},{"../utils":"5By4s"}],"3u8Tl":[function(require,module,exports) {
 "use strict";
 var utils = require("../utils");
 /**
@@ -28093,7 +27961,7 @@ AxiosError.from = function(error, code, config, request, response, customProps) 
 };
 module.exports = AxiosError;
 
-},{"../utils":"h3Byj"}],"ixLwX":[function(require,module,exports) {
+},{"../utils":"5By4s"}],"lM32f":[function(require,module,exports) {
 "use strict";
 module.exports = {
     silentJSONParsing: true,
@@ -28101,7 +27969,7 @@ module.exports = {
     clarifyTimeoutError: false
 };
 
-},{}],"2B8jZ":[function(require,module,exports) {
+},{}],"ajoez":[function(require,module,exports) {
 "use strict";
 var Buffer = require("buffer").Buffer;
 var utils = require("../utils");
@@ -28151,7 +28019,7 @@ var utils = require("../utils");
 }
 module.exports = toFormData;
 
-},{"buffer":"fDLgW","../utils":"h3Byj"}],"fDLgW":[function(require,module,exports) {
+},{"buffer":"fDLgW","../utils":"5By4s"}],"fDLgW":[function(require,module,exports) {
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -29551,7 +29419,7 @@ exports.write = function(buffer, value, offset, isLE, mLen, nBytes) {
     buffer[offset + i - d] |= s * 128;
 };
 
-},{}],"3ZVEc":[function(require,module,exports) {
+},{}],"ldm57":[function(require,module,exports) {
 "use strict";
 var utils = require("./../utils");
 var settle = require("./../core/settle");
@@ -29697,7 +29565,7 @@ module.exports = function xhrAdapter(config) {
     });
 };
 
-},{"./../utils":"h3Byj","./../core/settle":"7z6mY","./../helpers/cookies":"9AUGU","./../helpers/buildURL":"68FXt","../core/buildFullPath":"5nZ86","./../helpers/parseHeaders":"43iXb","./../helpers/isURLSameOrigin":"5Grhi","../defaults/transitional":"ixLwX","../core/AxiosError":"jJVgK","../cancel/CanceledError":"bOLGd","../helpers/parseProtocol":"3UHh4"}],"7z6mY":[function(require,module,exports) {
+},{"./../utils":"5By4s","./../core/settle":"dD9aC","./../helpers/cookies":"4WJjt","./../helpers/buildURL":"3bwC2","../core/buildFullPath":"1I5TW","./../helpers/parseHeaders":"kqDd5","./../helpers/isURLSameOrigin":"lxXtv","../defaults/transitional":"lM32f","../core/AxiosError":"3u8Tl","../cancel/CanceledError":"9PwCG","../helpers/parseProtocol":"7NfWU"}],"dD9aC":[function(require,module,exports) {
 "use strict";
 var AxiosError = require("./AxiosError");
 /**
@@ -29715,7 +29583,7 @@ var AxiosError = require("./AxiosError");
     ][Math.floor(response.status / 100) - 4], response.config, response.request, response));
 };
 
-},{"./AxiosError":"jJVgK"}],"9AUGU":[function(require,module,exports) {
+},{"./AxiosError":"3u8Tl"}],"4WJjt":[function(require,module,exports) {
 "use strict";
 var utils = require("./../utils");
 module.exports = utils.isStandardBrowserEnv() ? // Standard browser envs support document.cookie
@@ -29749,7 +29617,7 @@ function nonStandardBrowserEnv() {
     };
 }();
 
-},{"./../utils":"h3Byj"}],"5nZ86":[function(require,module,exports) {
+},{"./../utils":"5By4s"}],"1I5TW":[function(require,module,exports) {
 "use strict";
 var isAbsoluteURL = require("../helpers/isAbsoluteURL");
 var combineURLs = require("../helpers/combineURLs");
@@ -29766,7 +29634,7 @@ var combineURLs = require("../helpers/combineURLs");
     return requestedURL;
 };
 
-},{"../helpers/isAbsoluteURL":"itCtV","../helpers/combineURLs":"jwU4a"}],"itCtV":[function(require,module,exports) {
+},{"../helpers/isAbsoluteURL":"jD6NM","../helpers/combineURLs":"brOWK"}],"jD6NM":[function(require,module,exports) {
 "use strict";
 /**
  * Determines whether the specified URL is absolute
@@ -29780,7 +29648,7 @@ var combineURLs = require("../helpers/combineURLs");
     return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(url);
 };
 
-},{}],"jwU4a":[function(require,module,exports) {
+},{}],"brOWK":[function(require,module,exports) {
 "use strict";
 /**
  * Creates a new URL by combining the specified URLs
@@ -29792,7 +29660,7 @@ var combineURLs = require("../helpers/combineURLs");
     return relativeURL ? baseURL.replace(/\/+$/, "") + "/" + relativeURL.replace(/^\/+/, "") : baseURL;
 };
 
-},{}],"43iXb":[function(require,module,exports) {
+},{}],"kqDd5":[function(require,module,exports) {
 "use strict";
 var utils = require("./../utils");
 // Headers whose duplicates are ignored by node
@@ -29849,7 +29717,7 @@ var ignoreDuplicateOf = [
     return parsed;
 };
 
-},{"./../utils":"h3Byj"}],"5Grhi":[function(require,module,exports) {
+},{"./../utils":"5By4s"}],"lxXtv":[function(require,module,exports) {
 "use strict";
 var utils = require("./../utils");
 module.exports = utils.isStandardBrowserEnv() ? // Standard browser envs have full support of the APIs needed to test
@@ -29900,7 +29768,7 @@ function nonStandardBrowserEnv() {
     };
 }();
 
-},{"./../utils":"h3Byj"}],"bOLGd":[function(require,module,exports) {
+},{"./../utils":"5By4s"}],"9PwCG":[function(require,module,exports) {
 "use strict";
 var AxiosError = require("../core/AxiosError");
 var utils = require("../utils");
@@ -29919,24 +29787,24 @@ utils.inherits(CanceledError, AxiosError, {
 });
 module.exports = CanceledError;
 
-},{"../core/AxiosError":"jJVgK","../utils":"h3Byj"}],"3UHh4":[function(require,module,exports) {
+},{"../core/AxiosError":"3u8Tl","../utils":"5By4s"}],"7NfWU":[function(require,module,exports) {
 "use strict";
 module.exports = function parseProtocol(url) {
     var match = /^([-+\w]{1,25})(:?\/\/|:)/.exec(url);
     return match && match[1] || "";
 };
 
-},{}],"3FpyD":[function(require,module,exports) {
+},{}],"aFlee":[function(require,module,exports) {
 // eslint-disable-next-line strict
 module.exports = null;
 
-},{}],"6t7I2":[function(require,module,exports) {
+},{}],"a0VmF":[function(require,module,exports) {
 "use strict";
 module.exports = function isCancel(value) {
     return !!(value && value.__CANCEL__);
 };
 
-},{}],"e4zpW":[function(require,module,exports) {
+},{}],"b85oP":[function(require,module,exports) {
 "use strict";
 var utils = require("../utils");
 /**
@@ -30012,7 +29880,7 @@ var utils = require("../utils");
     return config;
 };
 
-},{"../utils":"h3Byj"}],"5JzR7":[function(require,module,exports) {
+},{"../utils":"5By4s"}],"9vgkY":[function(require,module,exports) {
 "use strict";
 var VERSION = require("../env/data").version;
 var AxiosError = require("../core/AxiosError");
@@ -30078,12 +29946,12 @@ module.exports = {
     validators: validators
 };
 
-},{"../env/data":"1uONT","../core/AxiosError":"jJVgK"}],"1uONT":[function(require,module,exports) {
+},{"../env/data":"h29L9","../core/AxiosError":"3u8Tl"}],"h29L9":[function(require,module,exports) {
 module.exports = {
     "version": "0.27.2"
 };
 
-},{}],"eiwgl":[function(require,module,exports) {
+},{}],"45wzn":[function(require,module,exports) {
 "use strict";
 var CanceledError = require("./CanceledError");
 /**
@@ -30165,7 +30033,7 @@ var CanceledError = require("./CanceledError");
 };
 module.exports = CancelToken;
 
-},{"./CanceledError":"bOLGd"}],"s4eXe":[function(require,module,exports) {
+},{"./CanceledError":"9PwCG"}],"dyQ8N":[function(require,module,exports) {
 "use strict";
 /**
  * Syntactic sugar for invoking a function and expanding an array for arguments.
@@ -30192,7 +30060,7 @@ module.exports = CancelToken;
     };
 };
 
-},{}],"9vAeJ":[function(require,module,exports) {
+},{}],"eyiLq":[function(require,module,exports) {
 "use strict";
 var utils = require("./../utils");
 /**
@@ -30204,7 +30072,7 @@ var utils = require("./../utils");
     return utils.isObject(payload) && payload.isAxiosError === true;
 };
 
-},{"./../utils":"h3Byj"}],"9YtA0":[function(require,module,exports) {
+},{"./../utils":"5By4s"}],"9YtA0":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$9fee = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -30271,8 +30139,8 @@ function LoginView(props) {
         }).then((response)=>{
             const data = response.data;
             props.onLoggedIn(data);
-        }).catch((e)=>{
-            console.log("no such user");
+        }).catch((response)=>{
+            console.log("There is no user with that username");
         });
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _containerDefault.default), {
@@ -30455,7 +30323,11 @@ $RefreshReg$(_c, "LoginView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
+<<<<<<< Updated upstream
 },{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap/Form":"iBZ80","react-bootstrap/Button":"aPzUt","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"fDiVC","prop-types":"7wKI2","react-bootstrap/Card":"lAynp","react-bootstrap/Container":"hEdsw","react-bootstrap/Col":"2L2I6","react-bootstrap/Row":"cMC39","react-router-dom":"9xmpe","axios":"bp8dP","./login-view.scss":"e57ax"}],"iBZ80":[function(require,module,exports) {
+=======
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap/Form":"iBZ80","react-bootstrap/Button":"aPzUt","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"fDiVC","prop-types":"7wKI2","react-bootstrap/Card":"lAynp","react-bootstrap/Container":"hEdsw","react-bootstrap/Col":"2L2I6","react-bootstrap/Row":"cMC39","react-router-dom":"9xmpe","./login-view.scss":"e57ax","axios":"jo6P5"}],"iBZ80":[function(require,module,exports) {
+>>>>>>> Stashed changes
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
