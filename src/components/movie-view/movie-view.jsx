@@ -34,6 +34,11 @@ export class MovieView extends React.Component {
           <h4>Description:</h4>
           {movie.Description}
         </Card.Body>
+        <Card.Body>
+          <h4>Infinity Stone Seen?:</h4>
+          {movie.Featured}
+        </Card.Body>
+
 
         <Card.Footer>
           <Button

@@ -1,8 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import { Link } from "react-router-dom";
+import React from "react";
+import PropTypes from "prop-types";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import { Link, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+
 
 export class MovieCard extends React.Component {
   render() {
@@ -16,9 +18,14 @@ export class MovieCard extends React.Component {
           <Card.Text>{movie.Description}</Card.Text>
           <Card.Text>{movie.Genre.Name}</Card.Text>
           <Card.Text>{movie.Genre.Description}</Card.Text>
+          <Card.Text>{movie.Featured}</Card.Text>
+          </Card.Body>
+          <Card.Footer>
           <Link to={`/movies/${movie._id}`}>
             <Button variant="link">Open</Button>
-          </Link>        </Card.Body>
+          </Link>
+          </Card.Footer>
+        
       </Card>
     );
   }

@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from "prop-types";
-
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 
 export function RegistrationView(props) {
