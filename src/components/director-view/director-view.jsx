@@ -17,9 +17,8 @@ export class DirectorView extends React.Component {
       <Container>
         <Card className="dir-view">
           <Card.Header className="dir-view-header">Director</Card.Header>
-          <Card.Body className="dir-view-title">{director.Name}</Card.Body>
-          <Card.Body>Born: {director.Birth}</Card.Body>
-          <Card.Body>{director.Bio}</Card.Body>
+          <Card.Body className="dir-view-title">{movie.Director.Name}</Card.Body>
+          <Card.Body>Born: {movie.Director.Birthday}</Card.Body>
           <Card.Footer>
             <Button
               className="dir-view-button"

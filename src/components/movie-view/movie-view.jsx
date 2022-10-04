@@ -9,6 +9,7 @@ import "../movie-view/movie-view";
 export class MovieView extends React.Component {
   render() {
     const { movie, onBackClick } = this.props;
+    const img = {movieimagePath}
 
     return (
       <Card className="movie-view">

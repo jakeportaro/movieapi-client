@@ -8,6 +8,8 @@ import { RegistrationView } from "../registration-view/registration-view";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { DirectorView } from "../director-view/director-view";
+import { GenreView } from "../genre-view/genre-view";
 
 export class MainView extends React.Component {
   constructor() {
@@ -113,6 +115,49 @@ export class MainView extends React.Component {
             );
           }}
         />
+ <Route
+          path="/directors/:directorName"
+          render={({ match, history }) => {
+            console.log("movies route director", user);
+            if (!user)
+              return (
+                <Col>
+                  <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
+                </Col>
+              );
+            if (movies.length === 0) return <div className="main-view" />;
+            return (
+              <Col md={8}>
+                <DirectorView
+                  movie={movies.find((m) => m.Director.Name === match.params.directorName)}
+                  onBackClick={() => history.goBack()}
+                />
+              </Col>
+            );
+          }}
+        />
+ <Route
+          path="/genres/:genreName"
+          render={({ match, history }) => {
+            console.log("movies route genre", user);
+            if (!user)
+              return (
+                <Col>
+                  <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
+                </Col>
+              );
+            if (movies.length === 0) return <div className="main-view" />;
+            return (
+              <Col md={8}>
+                <GenreView
+                  movie={movies.find((m) => m.Genre.Name === match.params.genreName)}
+                  onBackClick={() => history.goBack()}
+                />
+              </Col>
+            );
+          }}
+        />
+
 
         <Route
           path="/home"
