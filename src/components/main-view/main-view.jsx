@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 
+import { NavBar } from "../navbar/navbar";
 import { LoginView } from "../login-view/login-view";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
@@ -10,6 +11,7 @@ import Col from "react-bootstrap/Col";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { DirectorView } from "../director-view/director-view";
 import { GenreView } from "../genre-view/genre-view";
+import { ProfileView } from '../profile-view/profile-view';
 
 export class MainView extends React.Component {
   constructor() {
@@ -53,11 +55,56 @@ export class MainView extends React.Component {
     });
   }
 
+  handleFavorite = (movieId, action) => {
+    const { username, favoriteMovies } = this.state;
+    const accessToken = localStorage.getItem("token");
+    if (accessToken !== null && username !== null) {
+      // Add MovieID to Favorites (local state & webserver)
+      if (action === "add") {
+        this.setState({ favoriteMovies: [...favoriteMovies, movieId] });
+        axios
+          .post(
+            `https://marvel-movies.herokuapp.com/users/${username}/favorites/${movieId}`,
+            {},
+            {
+              headers: { Authorization: `Bearer ${accessToken}` },
+            }
+          )
+          .then((res) => {
+            console.log(`Movie added to ${username} Favorite movies`);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+        // Remove MovieID from Favorites (local state & webserver)
+      } else if (action === "remove") {
+        this.setState({
+          favoriteMovies: favoriteMovies.filter((id) => id !== movieId),
+        });
+        axios
+          .delete(
+            `https://marvel-movies.herokuapp.com/users/${username}/favorites/${movieId}`,
+            {
+              headers: { Authorization: `Bearer ${accessToken}` },
+            }
+          )
+          .then((res) => {
+            console.log(`Movie removed from ${username} Favorite movies`);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    }
+  };
+
   render() {
-    const { movies, selectedMovie, user, register } = this.state;
+    const { movies, selectedMovie, user, favoriteMovies } = this.state;
 
     return (
       <Router>
+        <NavBar user={user} />
         <Route
           exact
           path="/"
@@ -95,6 +142,33 @@ export class MainView extends React.Component {
           }}
         />
         <Route
+          path={`/users/${user}`}
+          render={({ history }) => {
+            if (!user) return <Redirect to="/" />;
+            return (
+              <Col>
+                <ProfileView
+                  user={user}
+                  onBackClick={() => history.goBack()}
+                  movies={movies}
+                />
+              </Col>
+            );
+          }}
+        />
+        <Route
+          path={`/user-update/${user}`}
+          render={({ match, history }) => {
+            if (!user) return <Redirect to="/" />;
+            return (
+              <Col>
+                <UserUpdate user={user} onBackClick={() => history.goBack()} />
+              </Col>
+            );
+          }}
+        />
+
+        <Route
           path="/movies/:movieId"
           render={({ match, history }) => {
             console.log("movies route user", user);
@@ -115,7 +189,7 @@ export class MainView extends React.Component {
             );
           }}
         />
- <Route
+        <Route
           path="/directors/:directorName"
           render={({ match, history }) => {
             console.log("movies route director", user);
@@ -129,14 +203,16 @@ export class MainView extends React.Component {
             return (
               <Col md={8}>
                 <DirectorView
-                  movie={movies.find((m) => m.Director.Name === match.params.directorName)}
+                  movie={movies.find(
+                    (m) => m.Director.Name === match.params.directorName
+                  )}
                   onBackClick={() => history.goBack()}
                 />
               </Col>
             );
           }}
         />
- <Route
+        <Route
           path="/genres/:genreName"
           render={({ match, history }) => {
             console.log("movies route genre", user);
@@ -150,7 +226,9 @@ export class MainView extends React.Component {
             return (
               <Col md={8}>
                 <GenreView
-                  movie={movies.find((m) => m.Genre.Name === match.params.genreName)}
+                  movie={movies.find(
+                    (m) => m.Genre.Name === match.params.genreName
+                  )}
                   onBackClick={() => history.goBack()}
                 />
               </Col>
@@ -158,6 +236,20 @@ export class MainView extends React.Component {
           }}
         />
 
+        <Route
+          path={`/users/:username`}
+          render={({ history }) => {
+            if (!user) return <Redirect to="/" />;
+            return (
+              <ProfileView
+                movies={movies}
+                goBack={history.goBack}
+                favoriteMovies={favoriteMovies || []}
+                handleFavorite={this.handleFavorite}
+              />
+            );
+          }}
+        />
 
         <Route
           path="/home"

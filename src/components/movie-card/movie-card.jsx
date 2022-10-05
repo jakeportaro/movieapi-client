@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { Link, Route } from "react-router-dom";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-
+import './movie-card.scss';
 
 export class MovieCard extends React.Component {
   render() {
@@ -20,7 +20,7 @@ export class MovieCard extends React.Component {
           <Card.Text>{movie.Genre.Description}</Card.Text>
           <Card.Text>{movie.Featured}</Card.Text>
           </Card.Body>
-          <Card.Footer>
+          <Card.Footer class="card-footer" >
           <Link to={`/movies/${movie._id}`}>
             <Button variant="link">Open</Button>
           </Link>

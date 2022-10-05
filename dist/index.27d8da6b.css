@@ -3,7 +3,55 @@
   font-size: 200px;
 }
 
+.card-footer {
+  background-color: #000 !important;
+  padding-left: 25px !important;
+}
 
+.card-img-top {
+  height: auto !important;
+  width: auto !important;
+  border: thick !important;
+  border-radius: 20% !important;
+}
+
+
+
+
+
+.logout {
+  color: #eef0f2;
+  width: 100%;
+  background-color: #336d82;
+  border: none;
+  border-radius: 8px;
+  margin-top: 10px;
+  padding: 10px;
+  font-family: Pathway Gothic One, sans-serif;
+  font-size: 14px;
+  text-decoration: none;
+  transition: opacity .2s;
+  display: inline-block;
+}
+
+.logout:hover, .logout:focus {
+  cursor: pointer;
+  opacity: .5;
+  background-color: #336d82;
+  text-decoration: none;
+  color: #191d32 !important;
+}
+
+.navbar-toggler, .navbar {
+  background-color: #000 !important;
+}
+
+.navbar-brand {
+  color: #000 !important;
+  box-sizing: 200px !important;
+  background-color: #fff !important;
+  border-width: 200px !important;
+}
 
 
 
