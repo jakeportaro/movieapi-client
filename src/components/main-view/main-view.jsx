@@ -11,7 +11,7 @@ import Col from "react-bootstrap/Col";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { DirectorView } from "../director-view/director-view";
 import { GenreView } from "../genre-view/genre-view";
-import { ProfileView } from '../profile-view/profile-view';
+import { ProfileView } from "../profile-view/profile-view";
 
 export class MainView extends React.Component {
   constructor() {
@@ -143,22 +143,23 @@ export class MainView extends React.Component {
           }}
         />
         <Route
-          path={`/users/${user}`}
+          path={`/users/:username`}
           render={({ history }) => {
             if (!user) return <Redirect to="/" />;
             return (
               <Col>
                 <ProfileView
-                  user={user}
-                  onBackClick={() => history.goBack()}
                   movies={movies}
+                  goBack={history.goBack}
+                  favoriteMovies={favoriteMovies || []}
+                  handleFavorite={this.handleFavorite}
                 />
               </Col>
             );
           }}
         />
         <Route
-          path={`/user-update/${user}`}
+          path={`/user-update/:username`}
           render={({ match, history }) => {
             if (!user) return <Redirect to="/" />;
             return (
@@ -239,7 +240,7 @@ export class MainView extends React.Component {
         />
 
         <Route
-          path={`/users/:username`}
+          path={`/users/:${user}`}
           render={({ history }) => {
             if (!user) return <Redirect to="/" />;
             return (
