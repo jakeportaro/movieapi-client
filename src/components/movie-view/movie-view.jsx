@@ -43,14 +43,16 @@ export class MovieView extends React.Component {
           <Button
             className="my-4 ml-2"
             variant="outline-primary"
-            onClick={() => handleFavorite(movie._id, "add")}>
+            onClick={() => handleFavorite(movie._id, "add")}
+          >
             Add to 🤍 Movies
           </Button>
           <Button
             className="movie-view-button"
             onClick={() => {
               onBackClick();
-            }}>
+            }}
+          >
             Back
           </Button>
         </Card.Footer>
