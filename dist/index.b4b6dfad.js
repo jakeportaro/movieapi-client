@@ -35988,6 +35988,7 @@ class MovieCard extends (0, _reactDefault.default).Component {
                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
                         to: `/movies/${movie._id}`,
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
+                            class: "open-button",
                             variant: "link",
                             children: "Open"
                         }, void 0, false, {
