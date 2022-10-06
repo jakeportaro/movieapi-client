@@ -40,8 +40,20 @@ $font-family_2: "League Gothic", sans-serif;
 }
 
 .navbar-brand {
-background-color: white !important;
-color: black !important;
-border-width: 200px !important;
-box-sizing: 200px !important;
-}
+    color: #fff;
+    text-shadow:
+        0 0 7px #fff,
+        0 0 10px #fff,
+        0 0 21px #fff,
+        0 0 42px #0fa,
+        0 0 82px #0fa,
+        0 0 92px #0fa,
+        0 0 102px #0fa,
+        0 0 151px #0fa;
+        font-size: xx-large !important;
+  }
+
+  .navbar-toggle-icon{
+    color: white !important;
+  }
+  

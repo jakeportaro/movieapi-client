@@ -18,6 +18,7 @@ export class MainView extends React.Component {
     super();
     this.state = {
       movies: [],
+      favoriteMovies: [],
       selectedMovie: null,
       user: null,
       register: null,
@@ -64,7 +65,7 @@ export class MainView extends React.Component {
         this.setState({ favoriteMovies: [...favoriteMovies, movieId] });
         axios
           .post(
-            `https://marvel-movies.herokuapp.com/users/${username}/favorites/${movieId}`,
+            `https://marvel-movies.herokuapp.com/users/${username}/movies/${movieId}`,
             {},
             {
               headers: { Authorization: `Bearer ${accessToken}` },
@@ -184,6 +185,7 @@ export class MainView extends React.Component {
                 <MovieView
                   movie={movies.find((m) => m._id === match.params.movieId)}
                   onBackClick={() => history.goBack()}
+                  handleFavorite={this.handleFavorite}
                 />
               </Col>
             );

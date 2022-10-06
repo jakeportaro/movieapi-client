@@ -26969,6 +26969,7 @@ class MainView extends (0, _reactDefault.default).Component {
         super();
         this.state = {
             movies: [],
+            favoriteMovies: [],
             selectedMovie: null,
             user: null,
             register: null
@@ -27010,7 +27011,7 @@ class MainView extends (0, _reactDefault.default).Component {
                         movieId
                     ]
                 });
-                (0, _axiosDefault.default).post(`https://marvel-movies.herokuapp.com/users/${username}/favorites/${movieId}`, {}, {
+                (0, _axiosDefault.default).post(`https://marvel-movies.herokuapp.com/users/${username}/movies/${movieId}`, {}, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`
                     }
@@ -27044,7 +27045,7 @@ class MainView extends (0, _reactDefault.default).Component {
                     user: user
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 107,
+                    lineNumber: 108,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27069,7 +27070,7 @@ class MainView extends (0, _reactDefault.default).Component {
                     }
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 108,
+                    lineNumber: 109,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27087,7 +27088,7 @@ class MainView extends (0, _reactDefault.default).Component {
                     }
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 130,
+                    lineNumber: 131,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27106,7 +27107,7 @@ class MainView extends (0, _reactDefault.default).Component {
                     }
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 144,
+                    lineNumber: 145,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27124,7 +27125,7 @@ class MainView extends (0, _reactDefault.default).Component {
                     }
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 159,
+                    lineNumber: 160,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27143,13 +27144,14 @@ class MainView extends (0, _reactDefault.default).Component {
                             md: 8,
                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
                                 movie: movies.find((m)=>m._id === match.params.movieId),
-                                onBackClick: ()=>history.goBack()
+                                onBackClick: ()=>history.goBack(),
+                                handleFavorite: this.handleFavorite
                             }, void 0, false, void 0, void 0)
                         }, void 0, false, void 0, void 0);
                     }
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 171,
+                    lineNumber: 172,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27174,7 +27176,7 @@ class MainView extends (0, _reactDefault.default).Component {
                     }
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 192,
+                    lineNumber: 194,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27199,7 +27201,7 @@ class MainView extends (0, _reactDefault.default).Component {
                     }
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 215,
+                    lineNumber: 217,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27217,7 +27219,7 @@ class MainView extends (0, _reactDefault.default).Component {
                     }
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 239,
+                    lineNumber: 241,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27250,13 +27252,13 @@ class MainView extends (0, _reactDefault.default).Component {
                     }
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 254,
+                    lineNumber: 256,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 106,
+            lineNumber: 107,
             columnNumber: 7
         }, this);
     }
@@ -36438,7 +36440,7 @@ function NavBar() {
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Brand, {
                     className: "navbar-logo",
                     href: "/",
-                    children: "myFlix"
+                    children: "Marvel Movies"
                 }, void 0, false, {
                     fileName: "src/components/navbar/navbar.jsx",
                     lineNumber: 31,

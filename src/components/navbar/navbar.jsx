@@ -29,7 +29,7 @@ export function NavBar() {
     <Navbar collapseOnSelect expand="xxl" variant="dark">
       <Container>
         <Navbar.Brand className="navbar-logo" href="/">
-          myFlix
+          Marvel Movies
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse
