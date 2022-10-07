@@ -57,7 +57,7 @@ export function LoginView(props) {
           props.onLoggedIn(data);
         })
         .catch((response) => {
-          console.log("There is no user with that username");
+          console.log("There is no user with that username", response);
         });
     }
   };

@@ -13,6 +13,7 @@ import Card from "react-bootstrap/Card";
 
 // Import custom SCSS
 import "./profile-view.scss";
+import { Figure } from "react-bootstrap";
 
 export class ProfileView extends React.Component {
   constructor() {
@@ -113,7 +114,7 @@ export class ProfileView extends React.Component {
         window.open(`/users/${Username}`, "_self");
       })
       .catch(function (error) {
-        console.log(error);
+        console.error(error);
       });
   };
 
@@ -161,6 +162,7 @@ export class ProfileView extends React.Component {
   }
 
   setBirthday(value) {
+    console.warn("setBirthday", value);
     this.setState({
       Birthday: value,
     });
@@ -170,6 +172,14 @@ export class ProfileView extends React.Component {
   render() {
     const { movies } = this.props;
     const { FavoriteMovies, Username, Email, Birthday, Password } = this.state;
+
+    const myFavoritesMovies = [];
+    for (let index = 0; index < movies.length; index++) {
+      const movie = movies[index];
+      if (FavoriteMovies.includes(movie._id)) {
+        myFavoritesMovies.push(movie);
+      }
+    }
 
     return (
       <Container>
@@ -245,7 +255,7 @@ export class ProfileView extends React.Component {
                       <Button
                         variant="warning"
                         type="submit"
-                        onClick={() => this.editUser()}
+                        onClick={(e) => this.editUser(e)}
                       >
                         Update User
                       </Button>
@@ -272,25 +282,23 @@ export class ProfileView extends React.Component {
               </Col>
             </Row>
             <Row>
-              {FavoriteMovies.map((ImagePath, Title, _id) => {
-                return (
-                  <Col key={_id} className="fav-movie">
-                    <Figure>
-                      <Link to={`/movies/${movie._id}`}>
-                        <Figure.Image src={ImagePath} alt={Title} />
-                        <Figure.Caption>{Title}</Figure.Caption>
-                      </Link>
-                    </Figure>
-                    <Button
-                      className="remove"
-                      variant="secondary"
-                      onClick={() => removeFav(movie._id)}
-                    >
-                      Remove from the list
-                    </Button>
-                  </Col>
-                );
-              })}
+              {myFavoritesMovies.map((movie) => (
+                <Col key={movie._id} className="fav-movie">
+                  <Figure>
+                    <Link to={`/movies/${movie._id}`}>
+                      <Figure.Image src={movie.ImagePath} alt={movie.Title} />
+                      <Figure.Caption>{movie.Title}</Figure.Caption>
+                    </Link>
+                  </Figure>
+                  <Button
+                    className="remove"
+                    variant="secondary"
+                    onClick={() => removeFav(movie._id)}
+                  >
+                    Remove from the list
+                  </Button>
+                </Col>
+              ))}
             </Row>
           </Card.Body>
         </Card>

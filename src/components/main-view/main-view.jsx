@@ -26,16 +26,13 @@ export class MainView extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get("https://marvel-movies.herokuapp.com/movies")
-      .then((response) => {
-        this.setState({
-          movies: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
+    let accessToken = localStorage.getItem("token");
+    if (accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem("user"),
       });
+      this.getMovies(accessToken);
+    }
   }
 
   setSelectedMovie(movie) {
@@ -44,9 +41,36 @@ export class MainView extends React.Component {
     });
   }
 
-  onLoggedIn(user) {
+  getMovies(token) {
+    axios
+      .get("https://marvel-movies.herokuapp.com/movies", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        // Assign the result to the state
+        this.setState({
+          movies: response.data,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  onLoggedIn(authData) {
+    console.log(authData);
     this.setState({
-      user,
+      user: authData.user.Username,
+    });
+
+    localStorage.setItem("token", authData.token);
+    localStorage.setItem("user", authData.user.Username);
+    this.getMovies(authData.token);
+  }
+
+  setSelectedMovie(movie) {
+    this.setState({
+      selectedMovie: movie,
     });
   }
 
@@ -57,8 +81,10 @@ export class MainView extends React.Component {
   }
 
   handleFavorite = (movieId, action) => {
-    const { username, favoriteMovies } = this.state;
+    const { user, favoriteMovies } = this.state;
     const accessToken = localStorage.getItem("token");
+    const username = user.user.Username;
+    console.log("accessToken", accessToken);
     if (accessToken !== null && username !== null) {
       // Add MovieID to Favorites (local state & webserver)
       if (action === "add") {
@@ -142,6 +168,7 @@ export class MainView extends React.Component {
             );
           }}
         />
+
         <Route
           path={`/users/:username`}
           render={({ history }) => {
@@ -158,6 +185,7 @@ export class MainView extends React.Component {
             );
           }}
         />
+
         <Route
           path={`/user-update/:username`}
           render={({ match, history }) => {
@@ -173,7 +201,7 @@ export class MainView extends React.Component {
         <Route
           path="/movies/:movieId"
           render={({ match, history }) => {
-            console.log("movies route user", user);
+            // console.log("movies route user", user);
             if (!user)
               return (
                 <Col>
@@ -192,6 +220,7 @@ export class MainView extends React.Component {
             );
           }}
         />
+
         <Route
           path="/directors/:directorName"
           render={({ match, history }) => {
@@ -215,6 +244,7 @@ export class MainView extends React.Component {
             );
           }}
         />
+
         <Route
           path="/genres/:genreName"
           render={({ match, history }) => {
@@ -239,7 +269,7 @@ export class MainView extends React.Component {
           }}
         />
 
-        <Route
+        {/* <Route
           path={`/users/:${user}`}
           render={({ history }) => {
             if (!user) return <Redirect to="/" />;
@@ -252,7 +282,7 @@ export class MainView extends React.Component {
               />
             );
           }}
-        />
+        /> */}
 
         <Route
           path="/home"
