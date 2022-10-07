@@ -34,15 +34,14 @@ export function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse
           id="responsive-navbar-nav"
-          className="justify-content-end"
-        >
+          className="justify-content-end">
           <Nav className="justify-content-end">
             <Link className="nav-link mr-2" to="/">
               Movies
             </Link>
             {isAuth() ? (
               <>
-                {' '}
+                {" "}
                 <Link className="nav-link mr-2" to={`/users/${user}`}>
                   Profile
                 </Link>
@@ -52,7 +51,7 @@ export function NavBar() {
               </>
             ) : (
               <>
-                {' '}
+                {" "}
                 <Link className="nav-link" to="/register">
                   Sign Up
                 </Link>
@@ -63,4 +62,4 @@ export function NavBar() {
       </Container>
     </Navbar>
   );
-};
+}

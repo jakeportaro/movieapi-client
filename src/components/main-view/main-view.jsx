@@ -80,10 +80,10 @@ export class MainView extends React.Component {
     });
   }
 
-  handleFavorite = (movieId, action) => {
+  handleFavorite = (movieId, action,) => {
     const { user, favoriteMovies } = this.state;
     const accessToken = localStorage.getItem("token");
-    const username = user.user.Username;
+    const username = user.Username;
     console.log("accessToken", accessToken);
     if (accessToken !== null && username !== null) {
       // Add MovieID to Favorites (local state & webserver)
@@ -111,7 +111,7 @@ export class MainView extends React.Component {
         });
         axios
           .delete(
-            `https://marvel-movies.herokuapp.com/users/${username}/favorites/${movieId}`,
+            `https://marvel-movies.herokuapp.com/users/${username}/movies/${movieId}`,
             {
               headers: { Authorization: `Bearer ${accessToken}` },
             }

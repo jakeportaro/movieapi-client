@@ -1,74 +1,51 @@
-import React from 'react';
-import axios from 'axios';
-import { Button, Card, Col, Container, Row } from 'react-bootstrap';
-import { FavoriteCard } from './favorite-card';
-import '../profile-view/profile-view.scss';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Button, Card, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import './favorite-card.scss';
 
-export const ProfileView = (props) => {
-  const { favoriteMovies, goBack, movies, handleFavorite } = props;
-  const username = localStorage.getItem('username');
-  const email = localStorage.getItem('email');
-  const birthday = localStorage.getItem('birthday');
-  const token = localStorage.getItem('token');
+export class FavoriteCard extends Component {
+  render() {
+    const { movie, handleFavorite } = this.props;
+    return (
+      <Col
+        xs={9}
+        sm={{ span: 9, offset: 2 }}
+        md={{ span: 5, offset: 0 }}
+        lg={4}
+        xl={3}
+        className="mb-3"
+      >
+        <Card className="my-1">
+          <Link to={`/movies/${movie._id}`}>
+            <Card.Img
+              crossOrigin="anonymous"
+              src={movie.imageURL}
+              className="poster position-relative"
+            />
+          </Link>{' '}
+          <Card.Body className="d-grid gap-2">
+            <p className="card-title mb-2">{movie.title} </p>
+            <span className="card-year">({movie.releaseYear})</span>
 
-  const deleteAccount = () => {
-    axios
-      .delete(`https://top-flix.herokuapp.com/users/${username}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        alert(`Your user account was deleted.`);
-        localStorage.clear();
-        window.open('/', '_self');
-      })
-      .catch((err) => console.log(err));
-  };
+            <Button
+              variant="outline-danger"
+              className="mt-2 ml-auto"
+              style={{ width: '100%' }}
+              onClick={() => handleFavorite(movie._id, 'remove')}
+            >
+              Remove from ♥️
+            </Button>
+          </Card.Body>
+        </Card>
+      </Col>
+    );
+  }
+}
 
-  return (
-    <Container className="mt-4" style={{ width: '80%' }}>
-      <h1>
-        Profile of <span className="text-info">{username}</span>
-      </h1>
-      <Button className="mb-4" variant="warning" onClick={goBack}>
-        « Back
-      </Button>
-
-      <h3>
-        Email: <span className="text-info fw-bold ml-4">{email}</span>
-      </h3>
-      <h3>
-        Birthday:{' '}
-        <span className="text-info fw-bold">{`${birthday.slice(
-          5,
-          7
-        )}-${birthday.slice(8, 10)}-${birthday.slice(0, 4)}`}</span>
-        <span id="mini" className="ml-2">
-          (mm-dd-yyyy)
-        </span>
-      </h3>
-      <h2 className="subtitle mt-4">LIST OF ♥️ MOVIES:</h2>
-      {favoriteMovies.length !== 0 ? (
-        <Row className="justify-content-center mt-3">
-          {favoriteMovies.map((movieId) => {
-            let movie = movies.find((m) => m._id === movieId);
-            return (
-              <FavoriteCard
-                key={movieId}
-                movie={movie}
-                handleFavorite={handleFavorite}
-              >
-                {movie.title}
-              </FavoriteCard>
-            );
-          })}
-        </Row>
-      ) : (
-        <h2 className="subtitle">
-          <span className="text-danger">
-            You don't have movies in your favorite movies list.
-          </span>
-        </h2>
-      )}
-    </Container>
-  );
+FavoriteCard.propTypes = {
+  movie: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    releaseYear: PropTypes.number.isRequired,
+  }).isRequired,
 };

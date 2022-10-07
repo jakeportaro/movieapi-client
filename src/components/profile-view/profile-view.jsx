@@ -211,8 +211,7 @@ export class ProfileView extends React.Component {
                         this.Email,
                         this.Birthday
                       )
-                    }
-                  >
+                    }>
                     <Form.Group>
                       <Form.Label>Username</Form.Label>
                       <Form.Control
@@ -255,15 +254,13 @@ export class ProfileView extends React.Component {
                       <Button
                         variant="warning"
                         type="submit"
-                        onClick={(e) => this.editUser(e)}
-                      >
+                        onClick={(e) => this.editUser(e)}>
                         Update User
                       </Button>
                       <Button
                         className="delete-button"
                         variant="danger"
-                        onClick={() => this.onDeleteUser()}
-                      >
+                        onClick={() => this.onDeleteUser()}>
                         Delete User
                       </Button>
                     </Form.Group>
@@ -293,8 +290,7 @@ export class ProfileView extends React.Component {
                   <Button
                     className="remove"
                     variant="secondary"
-                    onClick={() => removeFav(movie._id)}
-                  >
+                    onClick={() => removeFav(movie._id)}>
                     Remove from the list
                   </Button>
                 </Col>

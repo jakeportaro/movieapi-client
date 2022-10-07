@@ -98,8 +98,7 @@ export function LoginView(props) {
                   className="login-button"
                   variant="primary"
                   type="submit"
-                  onClick={handleSubmit}
-                >
+                  onClick={handleSubmit}>
                   Submit
                 </Button>
                 <br></br>
