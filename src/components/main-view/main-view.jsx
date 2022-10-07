@@ -81,10 +81,8 @@ export class MainView extends React.Component {
   }
 
   handleFavorite = (movieId, action,) => {
-    const { user, favoriteMovies } = this.state;
+    const { user:username, favoriteMovies } = this.state;
     const accessToken = localStorage.getItem("token");
-    const username = user.Username;
-    console.log("accessToken", accessToken);
     if (accessToken !== null && username !== null) {
       // Add MovieID to Favorites (local state & webserver)
       if (action === "add") {
