@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { MainView } from "../main-view/main-view";
 
 // Import React Bootstrap Components
 import Form from "react-bootstrap/Form";
@@ -26,20 +27,66 @@ export class ProfileView extends React.Component {
       FavoriteMovies: [],
     };
   }
+  
 
   componentDidMount() {
     const accessToken = localStorage.getItem("token");
     this.getUser(accessToken);
   }
 
-  onRemoveFavorite = (e, movie) => {
-    const username = localStorage.getItem("user");
+
+  handleFavorite = (movieId, action,) => {
+    const { user:username, favoriteMovies } = this.state;
+    const accessToken = localStorage.getItem("token");
+    if (accessToken !== null && username !== null) {
+      // Add MovieID to Favorites (local state & webserver)
+      if (action === "add") {
+        this.setState({ favoriteMovies: [...favoriteMovies, movieId] });
+        axios
+          .post(
+            `https://marvel-movies.herokuapp.com/users/${username}/movies/${movieId}`,
+            {},
+            {
+              headers: { Authorization: `Bearer ${accessToken}` },
+            }
+          )
+          .then((res) => {
+            console.log(`Movie added to ${username} Favorite movies`);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+        // Remove MovieID from Favorites (local state & webserver)
+      } else if (action === "remove") {
+        this.setState({
+          favoriteMovies: favoriteMovies.filter((id) => id !== movieId),
+        });
+        axios
+          .delete(
+            `https://marvel-movies.herokuapp.com/users/${username}/movies/${movieId}`,
+            {
+              headers: { Authorization: `Bearer ${accessToken}` },
+            }
+          )
+          .then((res) => {
+            console.log(`Movie removed from ${username} Favorite movies`);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    }
+  };
+
+  removeMovie = (e, movieId) => {
+    const { user:username }= this.state;
     console.log(username);
     const token = localStorage.getItem("token");
     console.log(this.props);
     axios
       .delete(
-        `https://marvel-movies.herokuapp.com/users/${Username}/movies/${movie._id}`,
+        `https://marvel-movies.herokuapp.com/users/${username}/movies/${movieId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((response) => {
@@ -170,7 +217,7 @@ export class ProfileView extends React.Component {
   }
 
   render() {
-    const { movies } = this.props;
+    const { movies, handleFavorite } = this.props;
     const { FavoriteMovies, Username, Email, Birthday, Password } = this.state;
 
     const myFavoritesMovies = [];
@@ -290,7 +337,7 @@ export class ProfileView extends React.Component {
                   <Button
                     className="remove"
                     variant="secondary"
-                    onClick={() => removeFav(movie._id)}>
+                    onClick={() => handleFavorite(movie._id, "remove")}>
                     Remove from the list
                   </Button>
                 </Col>
