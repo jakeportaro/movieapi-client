@@ -1,11 +1,20 @@
+.card-body {
+  width: 500px !important;
+}
+
+.card {
+  width: 500px !important;
+}
+
 .card-footer {
+  width: 500px !important;
   background-color: rgb(0, 0, 0) !important;
   padding-left: 25px !important;
 }
 
 .card-img-top {
   height: auto !important;
-  width: 300px !important;
+  width: 500px !important;
   border-radius: 20% !important;
   border: thick !important;
 }
@@ -92,4 +101,14 @@
   100% {
     background-position: 0 0;
   }
+}
+
+.form-control {
+  font-size: larger !important;
+  color: white !important;
+  border: black !important;
+  background-color: black !important;
+  font-weight: 600 !important;
+  
+  
 }
