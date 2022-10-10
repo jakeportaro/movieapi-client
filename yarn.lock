@@ -1403,7 +1403,7 @@
   "resolved" "https://registry.npmjs.org/ordered-binary/-/ordered-binary-1.4.0.tgz"
   "version" "1.4.0"
 
-"parcel@^2.6.2":
+"parcel@^2.7.0":
   "integrity" "sha512-pRYwnivwtNP0tip8xYSo4zCB0XhLt7/gJzP1p8OovCqkmFjG9VG+GW9TcAKqMIo0ovEa9tT+/s6gY1Qy+BONGQ=="
   "resolved" "https://registry.npmjs.org/parcel/-/parcel-2.7.0.tgz"
   "version" "2.7.0"
