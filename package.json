@@ -2,37 +2,40 @@
   "name": "movieapi-client",
   "version": "1.0.0",
   "description": "",
-  "default":"src/index.html",
+  "default": "src/index.html",
   "scripts": {
-    "start": "parcel src/index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "start": "parcel src/index.html",
+  "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jakeportaro/movieapi-client.git"
+  "type": "git",
+  "url": "git+https://github.com/jakeportaro/movieapi-client.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jakeportaro/movieapi-client/issues"
+  "url": "https://github.com/jakeportaro/movieapi-client/issues"
   },
   "homepage": "https://github.com/jakeportaro/movieapi-client#readme",
   "dependencies": {
-    "axios": "^0.27.2",
-    "prop-types": "^15.8.1",
-    "react": "^18.2.0",
-    "react-bootstrap": "^2.5.0",
-    "react-dom": "^18.2.0",
-    "react-redux": "^8.0.4",
-    "react-router-dom": "^5.2.0",
-    "redux": "^4.2.0",
-    "redux-devtools-extension": "^2.13.9"
+  "axios": "^0.27.2",
+  "prop-types": "^15.8.1",
+  "react": "^18.2.0",
+  "react-bootstrap": "^2.5.0",
+  "react-dom": "^18.2.0",
+  "react-redux": "^8.0.4",
+  "react-router-dom": "^5.2.0",
+  "redux": "^4.2.0",
+  "redux-devtools-extension": "^2.13.9"
   },
   "alias": {
-    "process": false
+  "process": false
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.7.0",
-    "parcel": "^2.7.0"
+  "@parcel/transformer-sass": "^2.7.0",
+  "buffer": "^6.0.3",
+  "parcel": "^2.7.0",
+  "process": "^0.11.10",
+  "sass": "^1.54.0"
   }
-}
+  }
