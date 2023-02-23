@@ -97,7 +97,7 @@ import "../main-view/main-view.scss"
         this.setState({ favoriteMovies: [...favoriteMovies, movieId] });
         axios
           .post(
-            `https://marvel-movies.herokuapp.com/users/${username}/movies/${movieId}`,
+            `https://marvel-movies-api.herokuapp.com/users/${username}/movies/${movieId}`,
             {},
             {
               headers: { Authorization: `Bearer ${accessToken}` },
@@ -117,7 +117,7 @@ import "../main-view/main-view.scss"
         });
         axios
           .delete(
-            `https://marvel-movies.herokuapp.com/users/${username}/movies/${movieId}`,
+            `https://marvel-movies-api.herokuapp.com/users/${username}/movies/${movieId}`,
             {
               headers: { Authorization: `Bearer ${accessToken}` },
             }
