@@ -27,16 +27,14 @@ export class ProfileView extends React.Component {
       FavoriteMovies: [],
     };
   }
-  
 
   componentDidMount() {
     const accessToken = localStorage.getItem("token");
     this.getUser(accessToken);
   }
 
-
-  handleFavorite = (movieId, action,) => {
-    const { user:username, favoriteMovies } = this.state;
+  handleFavorite = (movieId, action) => {
+    const { user: username, favoriteMovies } = this.state;
     const accessToken = localStorage.getItem("token");
     if (accessToken !== null && username !== null) {
       // Add MovieID to Favorites (local state & webserver)
@@ -44,7 +42,7 @@ export class ProfileView extends React.Component {
         this.setState({ favoriteMovies: [...favoriteMovies, movieId] });
         axios
           .post(
-            `https://marvel-movies.herokuapp.com/users/${username}/movies/${movieId}`,
+            `https://mcumovies.netlify.app/users/${username}/movies/${movieId}`,
             {},
             {
               headers: { Authorization: `Bearer ${accessToken}` },
@@ -64,7 +62,7 @@ export class ProfileView extends React.Component {
         });
         axios
           .delete(
-            `https://marvel-movies.herokuapp.com/users/${username}/movies/${movieId}`,
+            `https://mcumovies.netlify.app/users/${username}/movies/${movieId}`,
             {
               headers: { Authorization: `Bearer ${accessToken}` },
             }
@@ -80,13 +78,13 @@ export class ProfileView extends React.Component {
   };
 
   removeMovie = (e, movieId) => {
-    const { user:username }= this.state;
+    const { user: username } = this.state;
     console.log(username);
     const token = localStorage.getItem("token");
     console.log(this.props);
     axios
       .delete(
-        `https://marvel-movies.herokuapp.com/users/${username}/movies/${movieId}`,
+        `https://mcumovies.netlify.app/users/${username}/movies/${movieId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((response) => {
@@ -111,7 +109,7 @@ export class ProfileView extends React.Component {
   getUser = (token) => {
     const Username = localStorage.getItem("user");
     axios
-      .get(`https://marvel-movies.herokuapp.com/users/${Username}`, {
+      .get(`https://mcumovies.netlify.app/users/${Username}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -134,7 +132,7 @@ export class ProfileView extends React.Component {
     const token = localStorage.getItem("token");
     axios
       .put(
-        `https://marvel-movies.herokuapp.com/users/${Username}`,
+        `https://mcumovies.netlify.app/users/${Username}`,
         {
           Username: this.state.Username,
           Password: this.state.Password,
@@ -171,7 +169,7 @@ export class ProfileView extends React.Component {
     const token = localStorage.getItem("token");
 
     axios
-      .delete(`https://marvel-movies.herokuapp.com/users/${Username}`, {
+      .delete(`https://mcumovies.netlify.app/users/${Username}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {

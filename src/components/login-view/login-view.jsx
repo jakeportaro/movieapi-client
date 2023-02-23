@@ -48,7 +48,7 @@ export function LoginView(props) {
     if (isReq) {
       /* Send a request to the server for authentication */
       axios
-        .post("https://marvel-movies.herokuapp.com/login", {
+        .post("https://mcumovies.netlify.app/login", {
           Username: username,
           Password: password,
         })
