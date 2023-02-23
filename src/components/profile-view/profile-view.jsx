@@ -44,7 +44,7 @@ export class ProfileView extends React.Component {
         this.setState({ favoriteMovies: [...favoriteMovies, movieId] });
         axios
           .post(
-            `https://marvel-movies.herokuapp.com/users/${username}/movies/${movieId}`,
+            `https://marvel-movies-api.herokuapp.com/users/${username}/movies/${movieId}`,
             {},
             {
               headers: { Authorization: `Bearer ${accessToken}` },
@@ -64,7 +64,7 @@ export class ProfileView extends React.Component {
         });
         axios
           .delete(
-            `https://marvel-movies.herokuapp.com/users/${username}/movies/${movieId}`,
+            `https://marvel-movies-api.herokuapp.com/users/${username}/movies/${movieId}`,
             {
               headers: { Authorization: `Bearer ${accessToken}` },
             }
@@ -86,7 +86,7 @@ export class ProfileView extends React.Component {
     console.log(this.props);
     axios
       .delete(
-        `https://marvel-movies.herokuapp.com/users/${username}/movies/${movieId}`,
+        `https://marvel-movies-api.herokuapp.com/users/${username}/movies/${movieId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((response) => {
@@ -111,7 +111,7 @@ export class ProfileView extends React.Component {
   getUser = (token) => {
     const Username = localStorage.getItem("user");
     axios
-      .get(`https://marvel-movies.herokuapp.com/users/${Username}`, {
+      .get(`https://marvel-movies-api.herokuapp.com/users/${Username}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -134,7 +134,7 @@ export class ProfileView extends React.Component {
     const token = localStorage.getItem("token");
     axios
       .put(
-        `https://marvel-movies.herokuapp.com/users/${Username}`,
+        `https://marvel-movies-api.herokuapp.com/users/${Username}`,
         {
           Username: this.state.Username,
           Password: this.state.Password,
@@ -171,7 +171,7 @@ export class ProfileView extends React.Component {
     const token = localStorage.getItem("token");
 
     axios
-      .delete(`https://marvel-movies.herokuapp.com/users/${Username}`, {
+      .delete(`https://marvel-movies-api.herokuapp.com/users/${Username}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
