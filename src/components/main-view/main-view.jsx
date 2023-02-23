@@ -95,7 +95,7 @@ class MainView extends React.Component {
         this.setState({ favoriteMovies: [...favoriteMovies, movieId] });
         axios
           .post(
-            `https://mcumovies.netlify.app/users/${username}/movies/${movieId}`,
+            `https://marvel-movies-api.herokuapp.com/users/${username}/movies/${movieId}`,
             {},
             {
               headers: { Authorization: `Bearer ${accessToken}` },
@@ -115,7 +115,7 @@ class MainView extends React.Component {
         });
         axios
           .delete(
-            `https://mcumovies.netlify.app/users/${username}/movies/${movieId}`,
+            `https://marvel-movies-api.herokuapp.com/users/${username}/movies/${movieId}`,
             {
               headers: { Authorization: `Bearer ${accessToken}` },
             }
@@ -327,4 +327,4 @@ let mapStateToProps = (state) => {
   return { movies: state.movies };
 };
 
-export default connect(mapStateToProps, { setMovies })(MainView);
+export default connect (mapStateToProps, { setMovies } )(MainView);

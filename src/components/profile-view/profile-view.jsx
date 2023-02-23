@@ -42,7 +42,7 @@ export class ProfileView extends React.Component {
         this.setState({ favoriteMovies: [...favoriteMovies, movieId] });
         axios
           .post(
-            `https://mcumovies.netlify.app/users/${username}/movies/${movieId}`,
+            `https://marvel-movies-api.herokuapp.com/users/${username}/movies/${movieId}`,
             {},
             {
               headers: { Authorization: `Bearer ${accessToken}` },
@@ -62,7 +62,7 @@ export class ProfileView extends React.Component {
         });
         axios
           .delete(
-            `https://mcumovies.netlify.app/users/${username}/movies/${movieId}`,
+            `https://marvel-movies-api.herokuapp.com/users/${username}/movies/${movieId}`,
             {
               headers: { Authorization: `Bearer ${accessToken}` },
             }
@@ -84,7 +84,7 @@ export class ProfileView extends React.Component {
     console.log(this.props);
     axios
       .delete(
-        `https://mcumovies.netlify.app/users/${username}/movies/${movieId}`,
+        `https://marvel-movies-api.herokuapp.com/users/${username}/movies/${movieId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((response) => {
@@ -109,7 +109,7 @@ export class ProfileView extends React.Component {
   getUser = (token) => {
     const Username = localStorage.getItem("user");
     axios
-      .get(`https://mcumovies.netlify.app/users/${Username}`, {
+      .get(`https://marvel-movies-api.herokuapp.com/users/${Username}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -132,7 +132,7 @@ export class ProfileView extends React.Component {
     const token = localStorage.getItem("token");
     axios
       .put(
-        `https://mcumovies.netlify.app/users/${Username}`,
+        `https://marvel-movies-api.herokuapp.com/users/${Username}`,
         {
           Username: this.state.Username,
           Password: this.state.Password,
@@ -169,7 +169,7 @@ export class ProfileView extends React.Component {
     const token = localStorage.getItem("token");
 
     axios
-      .delete(`https://mcumovies.netlify.app/users/${Username}`, {
+      .delete(`https://marvel-movies-api.herokuapp.com/users/${Username}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
