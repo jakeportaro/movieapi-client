@@ -20,6 +20,7 @@
   "dependencies": {
   "axios": "^0.27.2",
   "parcel": "^2.7.0",
+  "@parcel/transformer-sass": "^2.7.0",
   "prop-types": "^15.8.1",
   "react": "^18.2.0",
   "react-bootstrap": "^2.5.0",
@@ -33,7 +34,6 @@
   "process": false
   },
   "devDependencies": {
-  "@parcel/transformer-sass": "^2.7.0",
   "buffer": "^6.0.3",
   "process": "^0.11.10",
   "sass": "^1.54.0"
