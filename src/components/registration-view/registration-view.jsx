@@ -63,7 +63,7 @@ export function RegistrationView(props) {
     const isReq = validate();
     if (isReq) {
       axios
-        .post("https://marvel-movies.herokuapp.com/users", {
+        .post("https://marvel-movies-api.herokuapp.com/users", {
           Name: name,
           Username: username,
           Password: password,
