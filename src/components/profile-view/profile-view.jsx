@@ -27,16 +27,14 @@ export class ProfileView extends React.Component {
       FavoriteMovies: [],
     };
   }
-  
 
   componentDidMount() {
     const accessToken = localStorage.getItem("token");
     this.getUser(accessToken);
   }
 
-
-  handleFavorite = (movieId, action,) => {
-    const { user:username, favoriteMovies } = this.state;
+  handleFavorite = (movieId, action) => {
+    const { user: username, favoriteMovies } = this.state;
     const accessToken = localStorage.getItem("token");
     if (accessToken !== null && username !== null) {
       // Add MovieID to Favorites (local state & webserver)
@@ -80,7 +78,7 @@ export class ProfileView extends React.Component {
   };
 
   removeMovie = (e, movieId) => {
-    const { user:username }= this.state;
+    const { user: username } = this.state;
     console.log(username);
     const token = localStorage.getItem("token");
     console.log(this.props);

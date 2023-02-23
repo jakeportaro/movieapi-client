@@ -1,12 +1,12 @@
 import React from "react";
 import axios from "axios";
 
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import { setMovies } from '../../actions/actions';
+import { setMovies } from "../../actions/actions";
 
 // we haven't written this one yet
-import MoviesList from '../movies-list/movies-list';
+import MoviesList from "../movies-list/movies-list";
 
 import { NavBar } from "../navbar/navbar";
 import { LoginView } from "../login-view/login-view";
@@ -20,9 +20,9 @@ import { DirectorView } from "../director-view/director-view";
 import { GenreView } from "../genre-view/genre-view";
 import { ProfileView } from "../profile-view/profile-view";
 
-import "../main-view/main-view.scss"
+import "../main-view/main-view.scss";
 
- class MainView extends React.Component {
+class MainView extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -51,19 +51,17 @@ import "../main-view/main-view.scss"
 
   getMovies(token) {
     axios
-      .get("https://marvel-movies.herokuapp.com/movies", {
+      .get("https://mcumovies.netlify.app/movies", {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then(response => {
-
+      .then((response) => {
         // #4
         this.props.setMovies(response.data);
       })
       .catch(function (error) {
         console.log(error);
       });
-    }
-  
+  }
 
   onLoggedIn(authData) {
     console.log(authData);
@@ -88,8 +86,8 @@ import "../main-view/main-view.scss"
     });
   }
 
-  handleFavorite = (movieId, action,) => {
-    const { user:username, favoriteMovies } = this.state;
+  handleFavorite = (movieId, action) => {
+    const { user: username, favoriteMovies } = this.state;
     const accessToken = localStorage.getItem("token");
     if (accessToken !== null && username !== null) {
       // Add MovieID to Favorites (local state & webserver)
@@ -133,7 +131,7 @@ import "../main-view/main-view.scss"
   };
 
   render() {
-    const {selectedMovie, user, favoriteMovies } = this.state;
+    const { selectedMovie, user, favoriteMovies } = this.state;
     const { movies } = this.props;
 
     return (
@@ -153,7 +151,7 @@ import "../main-view/main-view.scss"
                 </Col>
               );
             if (movies.length === 0) return <div className="main-view" />;
-            return <MoviesList md={4} movies={movies}/>;
+            return <MoviesList md={4} movies={movies} />;
           }}
         />
 
@@ -325,8 +323,8 @@ import "../main-view/main-view.scss"
   }
 }
 
-let mapStateToProps = state => {
-  return {movies: state.movies }
-}
+let mapStateToProps = (state) => {
+  return { movies: state.movies };
+};
 
 export default connect (mapStateToProps, { setMovies } )(MainView);
