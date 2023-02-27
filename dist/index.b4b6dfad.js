@@ -36775,14 +36775,11 @@ ${frame.code}`;
             }
             getMovies(token) {
               (0, _axiosDefault.default)
-                .get(
-                  "https://https://marvel-movies-api.herokuapp.com//movies",
-                  {
-                    headers: {
-                      Authorization: `Bearer ${token}`,
-                    },
-                  }
-                )
+                .get("https://marvel-movies-api.herokuapp.com//movies", {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                })
                 .then((response) => {
                   // #4
                   this.props.setMovies(response.data);
@@ -36821,7 +36818,7 @@ ${frame.code}`;
                   });
                   (0, _axiosDefault.default)
                     .post(
-                      `https://https://marvel-movies-api.herokuapp.com//users/${username}/movies/${movieId}`,
+                      `https://marvel-movies-api.herokuapp.com//users/${username}/movies/${movieId}`,
                       {},
                       {
                         headers: {
@@ -36844,7 +36841,7 @@ ${frame.code}`;
                   });
                   (0, _axiosDefault.default)
                     .delete(
-                      `https://https://marvel-movies-api.herokuapp.com//users/${username}/movies/${movieId}`,
+                      `https://marvel-movies-api.herokuapp.com//users/${username}/movies/${movieId}`,
                       {
                         headers: {
                           Authorization: `Bearer ${accessToken}`,
@@ -54312,13 +54309,10 @@ object-assign
               if (isReq)
                 /* Send a request to the server for authentication */ (0,
                 _axiosDefault.default)
-                  .post(
-                    "https://https://marvel-movies-api.herokuapp.com//login",
-                    {
-                      Username: username,
-                      Password: password,
-                    }
-                  )
+                  .post("https://marvel-movies-api.herokuapp.com//login", {
+                    Username: username,
+                    Password: password,
+                  })
                   .then((response) => {
                     const data = response.data;
                     props.onLoggedIn(data);
@@ -54821,16 +54815,13 @@ object-assign
               const isReq = validate();
               if (isReq)
                 (0, _axiosDefault.default)
-                  .post(
-                    "https://https://marvel-movies-api.herokuapp.com//users",
-                    {
-                      Name: name,
-                      Username: username,
-                      Password: password,
-                      Email: email,
-                      Birthday: birthday,
-                    }
-                  )
+                  .post("https://marvel-movies-api.herokuapp.com//users", {
+                    Name: name,
+                    Username: username,
+                    Password: password,
+                    Email: email,
+                    Birthday: birthday,
+                  })
                   .then((response) => {
                     const data = response.data;
                     console.log(data);
@@ -60260,7 +60251,7 @@ object-assign
                   });
                   (0, _axiosDefault.default)
                     .post(
-                      `https://https://marvel-movies-api.herokuapp.com//users/${username}/movies/${movieId}`,
+                      `https://marvel-movies-api.herokuapp.com//users/${username}/movies/${movieId}`,
                       {},
                       {
                         headers: {
@@ -60283,7 +60274,7 @@ object-assign
                   });
                   (0, _axiosDefault.default)
                     .delete(
-                      `https://https://marvel-movies-api.herokuapp.com//users/${username}/movies/${movieId}`,
+                      `https://marvel-movies-api.herokuapp.com//users/${username}/movies/${movieId}`,
                       {
                         headers: {
                           Authorization: `Bearer ${accessToken}`,
@@ -60308,7 +60299,7 @@ object-assign
               console.log(this.props);
               (0, _axiosDefault.default)
                 .delete(
-                  `https://https://marvel-movies-api.herokuapp.com//users/${username}/movies/${movieId}`,
+                  `https://marvel-movies-api.herokuapp.com//users/${username}/movies/${movieId}`,
                   {
                     headers: {
                       Authorization: `Bearer ${token}`,
@@ -60336,7 +60327,7 @@ object-assign
               const Username = localStorage.getItem("user");
               (0, _axiosDefault.default)
                 .get(
-                  `https://https://marvel-movies-api.herokuapp.com//users/${Username}`,
+                  `https://marvel-movies-api.herokuapp.com//users/${Username}`,
                   {
                     headers: {
                       Authorization: `Bearer ${token}`,
@@ -60362,7 +60353,7 @@ object-assign
               const token = localStorage.getItem("token");
               (0, _axiosDefault.default)
                 .put(
-                  `https://https://marvel-movies-api.herokuapp.com//users/${Username}`,
+                  `https://marvel-movies-api.herokuapp.com//users/${Username}`,
                   {
                     Username: this.state.Username,
                     Password: this.state.Password,
@@ -60399,7 +60390,7 @@ object-assign
               const token = localStorage.getItem("token");
               (0, _axiosDefault.default)
                 .delete(
-                  `https://https://marvel-movies-api.herokuapp.com//users/${Username}`,
+                  `https://marvel-movies-api.herokuapp.com//users/${Username}`,
                   {
                     headers: {
                       Authorization: `Bearer ${token}`,
