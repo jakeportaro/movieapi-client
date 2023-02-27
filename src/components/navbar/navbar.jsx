@@ -45,7 +45,7 @@ export function NavBar() {
                 <Link className="nav-link mr-2" to={`/users/${user}`}>
                   Profile
                 </Link>
-                <p className="nav-link" onClick={handleLogOut}>
+                <p className="nav-link logout" onClick={handleLogOut}>
                   Log Out
                 </p>
               </>
