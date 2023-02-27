@@ -51,7 +51,7 @@ class MainView extends React.Component {
 
   getMovies(token) {
     axios
-      .get("https://mcumovies.netlify.app/movies", {
+      .get("https://https://marvel-movies-api.herokuapp.com//movies", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -327,4 +327,4 @@ let mapStateToProps = (state) => {
   return { movies: state.movies };
 };
 
-export default connect (mapStateToProps, { setMovies } )(MainView);
+export default connect(mapStateToProps, { setMovies })(MainView);
